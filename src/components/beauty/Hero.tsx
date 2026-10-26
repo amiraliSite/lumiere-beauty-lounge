@@ -79,7 +79,7 @@ export default function Hero() {
           >
             <div className="flex items-center gap-3">
               <div className="flex -space-x-2 rtl:space-x-reverse">
-                {["/images/team-1.jpg", "/images/team-2.jpg", "/images/team-3.jpg"].map((src, i) => (
+                {["/images/team-1.png", "/images/team-2.png", "/images/team-3.png"].map((src, i) => (
                   <Image
                     key={i}
                     src={asset(src)}
@@ -124,7 +124,7 @@ export default function Hero() {
             <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-primary/25 via-accent/30 to-primary/10 blur-xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/40 shadow-soft-lg">
               <Image
-                src={asset("/images/salon-1.jpg")}
+                src={asset("/images/salon-1.png")}
                 alt={t.hero.imageAlt}
                 width={1080}
                 height={720}

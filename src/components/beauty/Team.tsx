@@ -6,7 +6,7 @@ import { Reveal, SectionHeading } from "./shared";
 import { useLanguage } from "./LanguageProvider";
 import { asset } from "@/lib/utils";
 
-const PHOTOS = ["/images/team-1.jpg", "/images/team-2.jpg", "/images/team-3.jpg", "/images/team-4.jpg"];
+const PHOTOS = ["/images/team-1.png", "/images/team-2.png", "/images/team-3.png", "/images/team-4.png"];
 
 export default function Team() {
   const { t } = useLanguage();
