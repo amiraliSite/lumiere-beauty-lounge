@@ -1,5 +1,10 @@
+import { Providers } from "@/components/beauty/Providers";
 import BeautySite from "@/components/beauty/BeautySite";
 
 export default function Home() {
-  return <BeautySite />;
+  return (
+    <Providers>
+      <BeautySite />
+    </Providers>
+  );
 }
