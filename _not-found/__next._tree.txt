@@ -1,5 +1,6 @@
-:HL["/lumiere-beauty-lounge/_next/static/chunks/163d90w0kuuep.css","style"]
+:HL["/lumiere-beauty-lounge/_next/static/chunks/1y5yl20-7riov.css","style"]
+:HL["/lumiere-beauty-lounge/_next/static/chunks/16j0hmrz7_xt2.css","style"]
 :HL["https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&display=swap","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"-FQHBVPraukqkE-brCay1","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"Rox4sbqa9K-yQk3A0Xaci","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
