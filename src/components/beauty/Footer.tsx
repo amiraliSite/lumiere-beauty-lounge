@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Heart, Mail, MapPin, Phone } from "lucide-react";
 import { BrandLogo } from "./shared";
 import { useLanguage } from "./LanguageProvider";
@@ -23,15 +22,19 @@ export default function Footer() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <footer className="relative mt-auto border-t border-border/60 bg-card/60">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <footer className="relative mt-auto w-full overflow-hidden border-t border-primary/20">
+      {/* full-bleed footer wash */}
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background" />
+      <div className="absolute -bottom-40 start-1/3 h-96 w-[40rem] rounded-full bg-primary/10 blur-3xl" />
+
+      <div className="relative grid w-full gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-10">
         <div className="flex flex-col gap-4">
           <BrandLogo />
           <p className="max-w-xs text-sm leading-7 text-muted-foreground">{t.footer.about}</p>
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-foreground">
+          <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-primary">
             {t.footer.linksTitle}
           </h3>
           <ul className="flex flex-col gap-2.5">
@@ -49,7 +52,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-foreground">
+          <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-primary">
             {t.footer.servicesTitle}
           </h3>
           <ul className="flex flex-col gap-2.5">
@@ -67,7 +70,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-foreground">
+          <h3 className="mb-4 text-sm font-extrabold uppercase tracking-wider text-primary">
             {t.footer.contactTitle}
           </h3>
           <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
@@ -87,10 +90,17 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-border/60 py-5">
+      {/* giant edge-to-edge brand type — ground to sky signature */}
+      <div className="relative select-none overflow-hidden px-2" aria-hidden="true">
+        <p className="whitespace-nowrap text-center font-display text-[18vw] font-black leading-[0.85] tracking-tight text-transparent lg:text-[13rem]" style={{ WebkitTextStroke: "1px var(--glow)" }}>
+          LUMIÈRE
+        </p>
+      </div>
+
+      <div className="relative border-t border-border/60 py-5">
         <p className="flex flex-wrap items-center justify-center gap-1.5 px-4 text-center text-xs text-muted-foreground">
           {t.footer.rights}
-          <Heart className="h-3.5 w-3.5 fill-rose-500 text-rose-500" />
+          <Heart className="h-3.5 w-3.5 fill-current text-primary" />
         </p>
       </div>
     </footer>

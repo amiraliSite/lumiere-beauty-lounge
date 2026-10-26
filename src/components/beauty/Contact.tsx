@@ -17,14 +17,17 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="bg-secondary/40 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative w-full overflow-hidden py-20 lg:py-32">
+      <div className="pointer-events-none absolute end-0 top-0 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+
+      <div className="w-full px-4 sm:px-6 lg:px-10">
         <SectionHeading badge={t.contact.kicker} title={t.contact.title} subtitle={t.contact.subtitle} />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* uniform gap-4 */}
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, i) => (
             <Reveal key={item.label} delay={(i % 3) * 0.08} className={i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}>
-              <div className="group flex h-full items-start gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-accent/30 text-primary transition-transform group-hover:scale-110">
+              <div className="group flex h-full items-start gap-4 rounded-2xl glass-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent-gradient text-primary-foreground shadow-glow transition-transform group-hover:scale-110">
                   <item.icon className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
@@ -39,17 +42,17 @@ export default function Contact() {
 
           {/* WhatsApp CTA card */}
           <Reveal delay={0.2}>
-            <div className="flex h-full flex-col justify-between gap-4 rounded-2xl bg-gradient-to-br from-primary to-rose-700 p-6 text-white shadow-soft-lg">
+            <div className="flex h-full flex-col justify-between gap-4 overflow-hidden rounded-2xl bg-accent-gradient p-6 text-primary-foreground shadow-glow">
               <div>
                 <p className="text-lg font-extrabold">{t.contact.whatsapp}</p>
-                <p className="mt-2 text-sm leading-7 text-white/85" dir="ltr">
+                <p className="mt-2 text-sm leading-7 opacity-85" dir="ltr">
                   {t.contact.whatsappValue}
                 </p>
               </div>
               <Button
                 asChild
                 variant="secondary"
-                className="w-fit gap-2 rounded-full bg-white text-rose-700 hover:bg-white/90"
+                className="w-fit gap-2 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background"
               >
                 <a href="https://wa.me/4917612345678" target="_blank" rel="noreferrer">
                   <MessageCircle className="h-4 w-4" />

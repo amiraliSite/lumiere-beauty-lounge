@@ -18,6 +18,11 @@ export const fa: Dictionary = {
   common: {
     language: "زبان",
     themeToggle: "تغییر تم",
+    theme: "پالت رنگی",
+    themeGold: "طلایی نوآر",
+    themeRose: "رز نوآر",
+    themeAmethyst: "امتیست",
+    themeEmerald: "زمرد نوآر",
     backToTop: "بازگشت به بالا",
     quickBook: "رزرو سریع",
   },
@@ -33,6 +38,10 @@ export const fa: Dictionary = {
     reviews: "+۵۰۰ نظر",
     callNow: "تماس فوری",
     imageAlt: "فضای داخلی شیک سالن زیبایی لومیر",
+  },
+  quote: {
+    text: "وقار، تنها زیبایی‌ای است که هرگز رنگ نمی‌بازد.",
+    author: "فلسفه لومیر",
   },
   stats: {
     items: [
@@ -118,6 +127,9 @@ export const fa: Dictionary = {
       { src: "/images/lashes-1.png", alt: "اکستنشن مژه" },
       { src: "/images/salon-2.png", alt: "کابین درمان مدرن" },
       { src: "/images/facial-2.png", alt: "مراقبت پوست با محصولات پریمیوم" },
+      { src: "/images/noir-1.png", alt: "هایلایت میکاپ طلایی" },
+      { src: "/images/noir-2.png", alt: "موج‌های براق و لوکس مو" },
+      { src: "/images/noir-3.png", alt: "ناخن‌های زرشکی با طلایی" },
     ],
   },
   team: {

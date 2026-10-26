@@ -18,6 +18,11 @@ export const de: Dictionary = {
   common: {
     language: "Sprache",
     themeToggle: "Design wechseln",
+    theme: "Farbwelt",
+    themeGold: "Noir Gold",
+    themeRose: "Rose Noir",
+    themeAmethyst: "Amethyst",
+    themeEmerald: "Emerald Noir",
     backToTop: "Nach oben",
     quickBook: "Termin buchen",
   },
@@ -33,6 +38,10 @@ export const de: Dictionary = {
     reviews: "500+ Bewertungen",
     callNow: "Direkt anrufen",
     imageAlt: "Elegantes Interieur des LUMIÈRE Beauty Lounges",
+  },
+  quote: {
+    text: "Eleganz ist die einzige Schönheit, die niemals verblasst.",
+    author: "LUMIÈRE Philosophie",
   },
   stats: {
     items: [
@@ -118,6 +127,9 @@ export const de: Dictionary = {
       { src: "/images/lashes-1.png", alt: "Wimpern-Extensions Behandlung" },
       { src: "/images/salon-2.png", alt: "Stilvolle Behandlungskabine" },
       { src: "/images/facial-2.png", alt: "Hautpflege mit Premium-Produkten" },
+      { src: "/images/noir-1.png", alt: "Goldenes Make-up Highlight" },
+      { src: "/images/noir-2.png", alt: "Glanzvolle Dunkel-Styling-Wellen" },
+      { src: "/images/noir-3.png", alt: "Dunkelrotes Nageldesign mit Gold" },
     ],
   },
   team: {

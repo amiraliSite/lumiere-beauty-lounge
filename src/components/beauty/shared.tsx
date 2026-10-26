@@ -9,8 +9,8 @@ export function SparkleLogo({ className }: { className?: string }) {
     <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
       <defs>
         <linearGradient id="lumiereGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#e11d63" />
-          <stop offset="1" stopColor="#d97706" />
+          <stop offset="0" stopColor="var(--grad-a)" />
+          <stop offset="1" stopColor="var(--grad-b)" />
         </linearGradient>
       </defs>
       <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#lumiereGrad)" />
@@ -78,18 +78,19 @@ export function SectionHeading({
   return (
     <div className={cn("flex flex-col gap-4", alignCls)}>
       <Reveal>
-        <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+        <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur">
           <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
           {badge}
         </span>
       </Reveal>
       <Reveal delay={0.08}>
-        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.6rem] lg:leading-[1.2]">
+        <h2 className="text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl lg:leading-[1.15]">
           {title}
         </h2>
       </Reveal>
       {subtitle ? (
         <Reveal delay={0.16}>
+          <span className="mb-1 block h-px w-20 bg-accent-gradient" aria-hidden="true" />
           <p className="max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
             {subtitle}
           </p>

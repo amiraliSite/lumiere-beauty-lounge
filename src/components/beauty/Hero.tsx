@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, CalendarCheck, Phone, Star } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, CalendarCheck, Phone, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "./LanguageProvider";
 import { asset } from "@/lib/utils";
@@ -15,22 +15,37 @@ export default function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <section id="home" className="relative overflow-hidden pt-28 lg:pt-36">
-      {/* soft blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-24 start-[-10%] h-96 w-96 rounded-full bg-primary/15 blur-3xl animate-blob" />
-        <div className="absolute top-40 end-[-8%] h-[28rem] w-[28rem] rounded-full bg-accent/40 blur-3xl animate-blob-delayed" />
-        <div className="absolute bottom-[-6rem] start-1/3 h-80 w-80 rounded-full bg-primary/10 blur-3xl animate-blob" />
+    <section id="home" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden">
+      {/* full-bleed cinematic background — ground to sky */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 animate-kenburns">
+          <Image
+            src={asset("/images/hero-noir.png")}
+            alt={t.hero.imageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+        {/* cinematic overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/35 to-background/20 rtl:bg-gradient-to-l" />
+        {/* ambient accent blobs */}
+        <div className="pointer-events-none absolute -bottom-32 -start-32 h-[34rem] w-[34rem] rounded-full bg-primary/15 blur-3xl animate-blob" />
+        <div className="pointer-events-none absolute -top-24 end-[-8%] h-[26rem] w-[26rem] rounded-full bg-primary/10 blur-3xl animate-blob-delayed" />
+        {/* grain */}
+        <div className="absolute inset-0 grain" />
       </div>
 
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:pb-24">
+      <div className="flex w-full flex-col gap-8 px-4 pb-24 pt-32 sm:px-6 lg:px-10 lg:pb-28 lg:pt-36">
         {/* Copy */}
-        <div className="flex flex-col items-start gap-6">
+        <div className="flex max-w-4xl flex-col items-start gap-6">
           <motion.span
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur"
           >
             <Sparkle className="h-4 w-4" />
             {t.hero.badge}
@@ -40,9 +55,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl"
+            className="text-5xl font-black leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.2rem]"
           >
-            {t.hero.titleA}{" "}
+            {t.hero.titleA}
+            <br />
             <span className="text-gradient">{t.hero.titleB}</span>
           </motion.h1>
 
@@ -50,7 +66,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg"
+            className="max-w-xl text-base leading-8 text-foreground/80 sm:text-lg"
           >
             {t.hero.subtitle}
           </motion.p>
@@ -61,11 +77,16 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="flex flex-wrap items-center gap-3"
           >
-            <Button size="lg" className="gap-2 rounded-full px-7 shadow-soft" onClick={() => scrollTo("booking")}>
+            <Button size="lg" className="gap-2 rounded-full px-7 shadow-glow" onClick={() => scrollTo("booking")}>
               <CalendarCheck className="h-5 w-5" />
               {t.hero.ctaPrimary}
             </Button>
-            <Button size="lg" variant="outline" className="gap-2 rounded-full px-7" onClick={() => scrollTo("services")}>
+            <Button
+              size="lg"
+              variant="outline"
+              className="gap-2 rounded-full border-primary/40 bg-background/40 px-7 backdrop-blur"
+              onClick={() => scrollTo("services")}
+            >
               {t.hero.ctaSecondary}
               <Arrow className="h-5 w-5" />
             </Button>
@@ -91,7 +112,7 @@ export default function Hero() {
                 ))}
               </div>
               <div>
-                <div className="flex items-center gap-1 text-amber-500">
+                <div className="flex items-center gap-1 text-primary">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
@@ -112,58 +133,19 @@ export default function Hero() {
             </div>
           </motion.div>
         </div>
-
-        {/* Visual */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
-        >
-          <div className="relative mx-auto max-w-[540px]">
-            <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-primary/25 via-accent/30 to-primary/10 blur-xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/40 shadow-soft-lg">
-              <Image
-                src={asset("/images/salon-1.png")}
-                alt={t.hero.imageAlt}
-                width={1080}
-                height={720}
-                priority
-                className="h-[320px] w-full object-cover sm:h-[420px] lg:h-[480px]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-            </div>
-
-            {/* floating cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="absolute -bottom-6 start-4 rounded-2xl bg-card/95 p-4 shadow-soft-lg backdrop-blur animate-floaty sm:start-8"
-            >
-              <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <CalendarCheck className="h-5 w-5" />
-                </span>
-                <div>
-                  <p className="text-lg font-extrabold leading-none">{t.stats.items[1].value.toLocaleString("en").replace(",", "٬")}+</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{t.stats.items[1].label}</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.6 }}
-              className="absolute -top-5 end-4 rounded-2xl bg-card/95 px-4 py-3 shadow-soft-lg backdrop-blur animate-floaty-slow sm:end-8"
-            >
-              <p className="text-2xl font-extrabold leading-none text-gradient">{t.about.yearsBadge}</p>
-              <p className="mt-1 text-[11px] text-muted-foreground">{t.about.yearsLabel}</p>
-            </motion.div>
-          </div>
-        </motion.div>
       </div>
+
+      {/* bottom edge fade + scroll hint */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.8 }}
+        onClick={() => scrollTo("about")}
+        aria-label="Scroll"
+        className="absolute bottom-6 start-1/2 z-10 -translate-x-1/2 text-primary/80 transition-colors hover:text-primary rtl:translate-x-1/2"
+      >
+        <ArrowDown className="h-7 w-7 animate-floaty" />
+      </motion.button>
     </section>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, Globe, Menu, Moon, Sun } from "lucide-react";
+import { Check, ChevronDown, Globe, Menu, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,14 +11,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "./LanguageProvider";
+import { useAccent, ACCENTS, ACCENT_SWATCH, type Accent } from "./AccentTheme";
 import { BrandLogo } from "./shared";
 import { dictionaries, localeOrder } from "@/lib/i18n";
 
@@ -33,9 +38,16 @@ const LINKS = [
   { id: "contact", key: "contact" },
 ] as const;
 
+const THEME_KEY: Record<Accent, "themeGold" | "themeRose" | "themeAmethyst" | "themeEmerald"> = {
+  gold: "themeGold",
+  rose: "themeRose",
+  amethyst: "themeAmethyst",
+  emerald: "themeEmerald",
+};
+
 export default function Navbar() {
   const { t, locale, setLocale } = useLanguage();
-  const { resolvedTheme, setTheme } = useTheme();
+  const { accent, setAccent } = useAccent();
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -69,6 +81,18 @@ export default function Navbar() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const themeSwatch = (a: Accent) => {
+    const s = ACCENT_SWATCH[a];
+    return (
+      <span
+        className="flex h-6 w-6 items-center justify-center rounded-full ring-1 ring-white/20"
+        style={{ background: `linear-gradient(135deg, ${s.a}, ${s.b})` }}
+      >
+        {accent === a && <Check className="h-3.5 w-3.5 text-white drop-shadow" strokeWidth={3} />}
+      </span>
+    );
+  };
+
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
@@ -76,10 +100,10 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "glass shadow-soft bg-background/75 border-b border-border/60" : "bg-transparent"
+        scrolled ? "glass shadow-soft bg-background/80 border-b border-border/60" : "bg-transparent"
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-[72px] lg:px-8">
+      <div className="flex h-16 w-full items-center justify-between gap-3 px-4 sm:px-6 lg:h-[72px] lg:px-10">
         <button onClick={() => scrollTo("home")} aria-label="Lumiere" className="shrink-0">
           <BrandLogo />
         </button>
@@ -107,6 +131,36 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Accent theme picker */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="sm" className="gap-1.5 rounded-full px-3" aria-label={t.common.theme}>
+                <Palette className="h-4 w-4 text-primary" />
+                <span className="hidden text-xs font-semibold sm:inline">{t.common.theme}</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="w-52 rounded-2xl border-border/70 bg-popover/95 p-3 glass">
+              <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                {t.common.theme}
+              </p>
+              <div className="flex flex-col gap-1">
+                {ACCENTS.map((a) => (
+                  <button
+                    key={a}
+                    onClick={() => setAccent(a)}
+                    className={cn(
+                      "flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:bg-primary/10",
+                      accent === a && "bg-primary/10 text-primary"
+                    )}
+                  >
+                    {t.common[THEME_KEY[a]]}
+                    {themeSwatch(a)}
+                  </button>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="gap-1.5 rounded-full px-3">
@@ -130,19 +184,8 @@ export default function Navbar() {
           </DropdownMenu>
 
           <Button
-            variant="outline"
-            size="icon"
-            className="rounded-full"
-            aria-label={t.common.themeToggle}
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-          >
-            <Sun className="hidden h-4 w-4 dark:block" />
-            <Moon className="h-4 w-4 dark:hidden" />
-          </Button>
-
-          <Button
             onClick={() => scrollTo("booking")}
-            className="hidden rounded-full px-5 shadow-soft sm:inline-flex"
+            className="hidden rounded-full px-5 shadow-glow sm:inline-flex"
           >
             {t.nav.book}
           </Button>
@@ -175,6 +218,27 @@ export default function Navbar() {
                   {t.nav.book}
                 </Button>
                 <div className="mt-4 border-t pt-4">
+                  <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                    <Palette className="h-3.5 w-3.5" />
+                    {t.common.theme}
+                  </p>
+                  <div className="mb-4 grid grid-cols-2 gap-2">
+                    {ACCENTS.map((a) => (
+                      <button
+                        key={a}
+                        onClick={() => setAccent(a)}
+                        className={cn(
+                          "flex items-center gap-2 rounded-lg border px-2 py-2 text-xs font-semibold transition-colors",
+                          accent === a
+                            ? "border-primary bg-primary/10 text-primary"
+                            : "border-border text-muted-foreground hover:border-primary/40"
+                        )}
+                      >
+                        {themeSwatch(a)}
+                        <span className="truncate">{t.common[THEME_KEY[a]]}</span>
+                      </button>
+                    ))}
+                  </div>
                   <p className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
                     <Globe className="h-3.5 w-3.5" />
                     {t.common.language}

@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { Check, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "./shared";
 import { useLanguage } from "./LanguageProvider";
+import { asset } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
 export default function Pricing() {
@@ -13,22 +15,35 @@ export default function Pricing() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
-    <section id="pricing" className="bg-secondary/40 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="relative w-full overflow-hidden">
+      {/* full-bleed cinematic backdrop */}
+      <div className="absolute inset-0">
+        <Image
+          src={asset("/images/band-noir-1.png")}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+      </div>
+
+      <div className="relative w-full px-4 py-20 sm:px-6 lg:px-10 lg:py-32">
         <SectionHeading badge={t.pricing.kicker} title={t.pricing.title} subtitle={t.pricing.subtitle} />
-        <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-3">
+        {/* uniform gap-4 */}
+        <div className="mt-14 grid items-stretch gap-4 lg:grid-cols-3">
           {t.pricing.plans.map((plan, i) => (
             <Reveal key={plan.name} delay={i * 0.1} className="h-full">
               <div
                 className={cn(
-                  "relative flex h-full flex-col overflow-hidden rounded-3xl border bg-card p-8 transition-shadow",
+                  "relative flex h-full flex-col overflow-hidden rounded-3xl border p-8 backdrop-blur transition-all duration-300",
                   plan.featured
-                    ? "border-primary/40 shadow-soft-lg ring-2 ring-primary/25 lg:scale-[1.03]"
-                    : "border-border/60 shadow-sm hover:shadow-soft"
+                    ? "border-primary/50 bg-card/80 shadow-glow ring-1 ring-primary/30 lg:scale-[1.03]"
+                    : "glass-card hover:border-primary/30"
                 )}
               >
                 {plan.featured && (
-                  <span className="absolute top-0 end-0 flex items-center gap-1.5 rounded-bl-2xl bg-gradient-to-r from-primary to-rose-700 px-4 py-1.5 text-xs font-bold text-white">
+                  <span className="absolute top-0 end-0 flex items-center gap-1.5 rounded-bl-2xl bg-accent-gradient px-4 py-1.5 text-xs font-bold text-primary-foreground">
                     <Crown className="h-3.5 w-3.5" />
                     ★
                   </span>
@@ -36,7 +51,7 @@ export default function Pricing() {
                 <h3 className="text-xl font-extrabold">{plan.name}</h3>
                 <p className="mt-1.5 text-sm text-muted-foreground">{plan.desc}</p>
                 <div className="mt-6 flex items-end gap-2">
-                  <span className={cn("text-4xl font-extrabold tracking-tight", plan.featured && "text-gradient")}>
+                  <span className={cn("text-4xl font-black tracking-tight", plan.featured && "text-gradient")}>
                     {plan.price}
                   </span>
                   <span className="pb-1.5 text-sm text-muted-foreground">{plan.period}</span>
@@ -44,7 +59,7 @@ export default function Pricing() {
                 <ul className="mt-7 flex flex-col gap-3.5">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5 text-sm leading-6">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-gradient text-primary-foreground">
                         <Check className="h-3 w-3" strokeWidth={3} />
                       </span>
                       {f}
@@ -55,7 +70,7 @@ export default function Pricing() {
                   onClick={() => scrollTo("booking")}
                   className={cn(
                     "mt-8 w-full rounded-full py-6 text-base",
-                    plan.featured ? "shadow-soft" : "variant-outline border-primary/30"
+                    plan.featured ? "shadow-glow" : "border-primary/40 bg-transparent"
                   )}
                   variant={plan.featured ? "default" : "outline"}
                 >

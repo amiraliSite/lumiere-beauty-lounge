@@ -36,10 +36,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fff7f8" },
-    { media: "(prefers-color-scheme: dark)", color: "#1c1216" },
-  ],
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#141018" }],
 };
 
 export default function RootLayout({
@@ -48,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" dir="ltr" suppressHydrationWarning>
+    <html lang="de" dir="ltr" className="dark" data-accent="gold" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

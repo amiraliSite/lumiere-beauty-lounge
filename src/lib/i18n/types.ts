@@ -61,6 +61,11 @@ export interface Dictionary {
   common: {
     language: string;
     themeToggle: string;
+    theme: string;
+    themeGold: string;
+    themeRose: string;
+    themeAmethyst: string;
+    themeEmerald: string;
     backToTop: string;
     quickBook: string;
   };
@@ -76,6 +81,7 @@ export interface Dictionary {
     callNow: string;
     imageAlt: string;
   };
+  quote: { text: string; author: string };
   stats: { items: StatItem[] };
   about: {
     kicker: string;

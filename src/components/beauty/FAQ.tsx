@@ -12,16 +12,19 @@ import { useLanguage } from "./LanguageProvider";
 export default function FAQ() {
   const { t } = useLanguage();
   return (
-    <section id="faq" className="py-20 lg:py-28">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading badge={t.faq.kicker} title={t.faq.title} subtitle={t.faq.subtitle} />
-        <Reveal delay={0.15} className="mt-12">
+    <section id="faq" className="relative w-full py-20 lg:py-32">
+      {/* editorial two-column layout: sticky heading left, accordion right */}
+      <div className="grid w-full gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.4fr] lg:gap-20 lg:px-10">
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <SectionHeading badge={t.faq.kicker} title={t.faq.title} subtitle={t.faq.subtitle} align="start" />
+        </div>
+        <Reveal delay={0.15}>
           <Accordion type="single" collapsible className="flex flex-col gap-3">
             {t.faq.items.map((item, i) => (
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="rounded-2xl border border-border/60 bg-card px-5 shadow-sm last:border-b"
+                className="rounded-2xl glass-card border px-5 last:border-b"
               >
                 <AccordionTrigger className="py-5 text-start text-base font-bold hover:no-underline">
                   {item.q}

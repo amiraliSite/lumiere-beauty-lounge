@@ -4,43 +4,55 @@ import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import { Reveal, SectionHeading } from "./shared";
+import { SectionHeading } from "./shared";
 import { useLanguage } from "./LanguageProvider";
 import { asset } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
+/**
+ * FULL-BLEED gallery — no boxed container, images run edge to edge.
+ * CSS-columns masonry with ONE uniform gap value (gap-3 / gap-4) and
+ * rounded only on tiles, so vertical rhythm is perfectly consistent.
+ */
 export default function Gallery() {
   const { t } = useLanguage();
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
-    <section id="gallery" className="bg-secondary/40 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="gallery" className="relative w-full py-20 lg:py-32">
+      <div className="px-4 sm:px-6 lg:px-10">
         <SectionHeading badge={t.gallery.kicker} title={t.gallery.title} subtitle={t.gallery.subtitle} />
-        <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {t.gallery.items.map((item, i) => (
-            <Reveal key={item.src} delay={(i % 4) * 0.06}>
-              <button
-                onClick={() => setSelected(i)}
-                className="group relative block w-full overflow-hidden rounded-2xl shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                aria-label={item.alt}
-              >
-                <Image
-                  src={asset(item.src)}
-                  alt={item.alt}
-                  width={640}
-                  height={640}
-                  className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
-                    i === 0 || i === 5 ? "aspect-[4/5]" : "aspect-square"
-                  }`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="absolute bottom-3 start-3 end-3 translate-y-2 rounded-lg bg-white/90 px-3 py-1.5 text-start text-[11px] font-semibold text-gray-900 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-black/70 dark:text-white">
-                  {item.alt}
-                </span>
-              </button>
-            </Reveal>
-          ))}
-        </div>
+      </div>
+
+      {/* ground-to-sky masonry strip */}
+      <div className="mt-14 w-full columns-2 gap-3 px-3 sm:gap-4 sm:px-4 lg:columns-4 lg:px-6 [&>*]:mb-3 sm:[&>*]:mb-4">
+        {t.gallery.items.map((item, i) => (
+          <motion.button
+            key={item.src}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.55, delay: (i % 4) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+            onClick={() => setSelected(i)}
+            className="group relative block w-full overflow-hidden rounded-2xl border border-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label={item.alt}
+          >
+            <Image
+              src={asset(item.src)}
+              alt={item.alt}
+              width={640}
+              height={800}
+              className={cn(
+                "w-full object-cover transition-all duration-500 group-hover:scale-105",
+                i % 3 === 1 ? "aspect-[3/4]" : i % 3 === 2 ? "aspect-square" : "aspect-[4/5]"
+              )}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="absolute bottom-3 start-3 end-3 translate-y-2 rounded-lg glass px-3 py-1.5 text-start text-[11px] font-semibold text-white opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              {item.alt}
+            </span>
+          </motion.button>
+        ))}
       </div>
 
       {/* Lightbox */}
@@ -50,7 +62,7 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
             onClick={() => setSelected(null)}
             role="dialog"
             aria-modal="true"

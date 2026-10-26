@@ -138,9 +138,10 @@ export default function Booking() {
   };
 
   return (
-    <section id="booking" className="relative overflow-hidden bg-secondary/40 py-20 lg:py-28">
+    <section id="booking" className="relative w-full overflow-hidden border-y border-primary/20 py-20 lg:py-32">
+      <div className="absolute inset-0 bg-accent-gradient opacity-[0.08]" />
       <div className="pointer-events-none absolute -top-20 end-[-6rem] h-72 w-72 rounded-full bg-primary/15 blur-3xl animate-blob" />
-      <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.2fr] lg:px-8">
+      <div className="relative grid w-full items-start gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.2fr] lg:px-10">
         {/* Left copy */}
         <div className="flex flex-col gap-8">
           <SectionHeading
@@ -152,8 +153,8 @@ export default function Booking() {
           <div className="flex flex-col gap-3">
             {t.booking.perks.map((perk, i) => (
               <Reveal key={perk} delay={0.2 + i * 0.08}>
-                <div className="flex items-center gap-3 rounded-xl border border-primary/15 bg-card px-4 py-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/12 text-primary">
+                <div className="flex items-center gap-3 rounded-xl glass-card px-4 py-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-gradient text-primary-foreground">
                     <BadgeCheck className="h-5 w-5" />
                   </span>
                   <span className="text-sm font-semibold">{perk}</span>
@@ -175,7 +176,7 @@ export default function Booking() {
         <Reveal delay={0.15}>
           <motion.form
             onSubmit={handleSubmit(onSubmit)}
-            className="rounded-3xl border border-border/60 bg-card p-6 shadow-soft-lg sm:p-8"
+            className="rounded-3xl glass-card p-6 shadow-soft-lg sm:p-8"
             whileHover={{ y: -2 }}
           >
             <div className="grid gap-5 sm:grid-cols-2">
@@ -239,7 +240,7 @@ export default function Booking() {
               </div>
             </div>
 
-            <Button type="submit" disabled={submitting} className="mt-7 w-full gap-2 rounded-full py-6 text-base shadow-soft">
+            <Button type="submit" disabled={submitting} className="mt-7 w-full gap-2 rounded-full py-6 text-base shadow-glow">
               {submitting ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />

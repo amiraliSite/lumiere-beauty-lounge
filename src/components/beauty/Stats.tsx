@@ -7,18 +7,21 @@ import { useLanguage } from "./LanguageProvider";
 export default function Stats() {
   const { t } = useLanguage();
   return (
-    <section aria-label="Stats" className="relative z-10 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto -mt-2 max-w-7xl">
-        <div className="grid grid-cols-2 gap-4 rounded-3xl border border-primary/15 bg-gradient-to-br from-primary via-primary/90 to-rose-800 p-8 shadow-soft-lg sm:gap-6 lg:grid-cols-4 lg:p-10">
-          {t.stats.items.map((stat, i) => (
-            <div key={stat.label} className="flex flex-col items-center gap-2 text-center">
-              <span className="text-3xl font-extrabold text-white sm:text-4xl lg:text-[2.6rem]">
-                <Counter value={stat.value} suffix={stat.suffix} locale={t.dir === "rtl" ? "fa" : "de"} />
-              </span>
-              <p className="text-sm font-medium text-white/85">{stat.label}</p>
-            </div>
-          ))}
-        </div>
+    <section aria-label="Stats" className="relative w-full overflow-hidden border-y border-primary/20">
+      {/* accent gradient wash — full bleed */}
+      <div className="absolute inset-0 bg-accent-gradient opacity-[0.14]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/60" />
+      <div className="absolute -top-24 start-1/4 h-64 w-64 rounded-full bg-primary/20 blur-3xl animate-blob" />
+
+      <div className="relative grid w-full grid-cols-2 gap-y-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-10 lg:py-20">
+        {t.stats.items.map((stat, i) => (
+          <div key={stat.label} className="flex flex-col items-center gap-2 text-center lg:border-s lg:border-primary/15 first:border-s-0">
+            <span className="text-4xl font-black text-gradient tabular-nums sm:text-5xl lg:text-6xl">
+              <Counter value={stat.value} suffix={stat.suffix} locale={t.dir === "rtl" ? "fa" : "de"} />
+            </span>
+            <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
